@@ -47,17 +47,20 @@ class HelloTests {
     }
 }
 
-class Blocks(
-    private val size: Int,
+data class Blocks(
+    val size: Int,
     private val state: List<List<Int>> = List(size) { listOf(it) }
 ) {
-    fun move(from: Int, to: Int): List<List<Int>> {
-        if (from == to) return state
+    operator fun get(index: Int) = state[index]
 
-        return state.map { stack ->
-            if (stack.contains(from)) stack - from
-            else if (stack.contains(to)) stack + from
-            else stack
-        }
+    fun move(from: Int, to: Int): Blocks {
+        if (from == to) return this
+
+        return copy(state = state.map { stack ->
+                if (stack.contains(from)) stack - from
+                else if (stack.contains(to)) stack + from
+                else stack
+            }
+        )
     }
 }
