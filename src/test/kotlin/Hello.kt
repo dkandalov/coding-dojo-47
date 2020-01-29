@@ -2,21 +2,21 @@ import org.junit.jupiter.api.Test
 
 class HelloTests {
     @Test fun `2 blocks - move 1 onto 2`() {
-        val blocks = Blocks().move(from = 0, to = 1)
+        val blocks = Blocks(size = 2).move(from = 0, to = 1)
         assert(blocks[0] == emptyList<Int>())
         assert(blocks[1] == listOf(1, 0))
         assert(blocks.size == 2)
     }
 
     @Test fun `2 blocks - move 2 onto 1`() {
-        val blocks = Blocks().move(from = 1, to = 0)
+        val blocks = Blocks(size = 2).move(from = 1, to = 0)
         assert(blocks[0] == listOf(0, 1))
         assert(blocks[1] == emptyList<Int>())
         assert(blocks.size == 2)
     }
 
     @Test fun `2 blocks - move 1 onto 1`() {
-        val blocks = Blocks().move(from = 0, to = 0)
+        val blocks = Blocks(size = 2).move(from = 0, to = 0)
         assert(blocks[0] == listOf(0))
         assert(blocks[1] == listOf(1))
         assert(blocks.size == 2)
@@ -48,7 +48,7 @@ class HelloTests {
 }
 
 class Blocks(
-    private val size: Int = 2,
+    private val size: Int,
     private val state: List<List<Int>> = List(size) { listOf(it) }
 ) {
     fun move(from: Int, to: Int): List<List<Int>> {
